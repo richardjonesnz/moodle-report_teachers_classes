@@ -1,4 +1,4 @@
-Assignment files report
+Assignment files
 ================
 
 Report to display all assignment files uploaded for a course and / or user
