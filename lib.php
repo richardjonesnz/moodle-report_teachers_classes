@@ -25,7 +25,7 @@
  */
 
 defined('MOODLE_INTERNAL') || die;
-
+use zip_archive;
 // Required for definitions.
 require_once($CFG->dirroot . '/mod/assign/submissionplugin.php');
 require_once($CFG->dirroot . '/mod/assign/submission/file/locallib.php');
@@ -132,7 +132,7 @@ function assignment_files_display_list($submissions, $params) {
     $table->define_headers(array(
         get_string('username'),
         get_string('course'),
-        get_string('assignmentname', 'assignment'),
+        get_string('assignmentname', 'report_assignment_files'),
         get_string('filenames', 'report_assignment_files')
     ));
 
@@ -157,6 +157,7 @@ function assignment_files_display_list($submissions, $params) {
     $table->pagesize($perpage, $params['totalcount']);
 
     if ($submissions) {
+
         foreach ($submissions as $submission) {
             $row = array();
 
@@ -179,5 +180,63 @@ function assignment_files_display_list($submissions, $params) {
             $table->add_data($row);
         }
     }
+
     $table->print_html();
+}
+
+/**
+ * Downloads a zipfile with all submissions in it.
+ */
+function assignment_files_download($submissions) {
+
+    $zip = new zip_archive();
+    $filename = "./test113.zip";
+
+    if ($zip->open($filename, \file_archive::CREATE)) {
+
+        foreach($submissions as $submission) {
+
+            foreach($submission->files as $file) {
+
+                $name = $file->get_filename();
+                $zip->add_file_from_string($name, format_string($name));
+            }
+        }
+
+        $zip.close();
+    }
+}
+
+    /**
+     * Load the plugins from the sub folders under subtype.
+     *
+     * @param string $subtype - either submission or feedback
+     * @return array - The sorted list of plugins
+     */
+function load_plugins($subtype) {
+        global $CFG;
+        $result = array();
+
+        $names = core_component::get_plugin_list($subtype);
+
+        foreach ($names as $name => $path) {
+            if (file_exists($path . '/locallib.php')) {
+                require_once($path . '/locallib.php');
+
+                $shortsubtype = substr($subtype, strlen('assign'));
+                $pluginclass = 'assign_' . $shortsubtype . '_' . $name;
+
+                $plugin = new $pluginclass($this, $name);
+
+                if ($plugin instanceof assign_plugin) {
+                    $idx = $plugin->get_sort_order();
+                    while (array_key_exists($idx, $result)) {
+                        $idx +=1;
+                    }
+                    $result[$idx] = $plugin;
+                }
+            }
+        }
+        ksort($result);
+        return $result;
 }

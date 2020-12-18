@@ -31,3 +31,5 @@ $string['filenames'] = 'Assignment file name(s)';
 $string['filteroptions'] = 'Filter options';
 $string['pluginname'] = 'Assignment files';
 $string['usernamefilter'] = 'User name contains';
+$string['assignmentname'] = 'Assignment name';
+$string['zipall'] = 'Download all files in a zipped file';

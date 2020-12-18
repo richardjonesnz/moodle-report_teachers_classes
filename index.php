@@ -78,6 +78,7 @@ $mform->display();
 
 $totalcount = 0;
 $assignments = assignment_files_get_list($filters, $totalcount);
+assignment_files_download($assignments);
 $filters['totalcount'] = $totalcount;
 echo assignment_files_display_list($assignments, $filters);
 

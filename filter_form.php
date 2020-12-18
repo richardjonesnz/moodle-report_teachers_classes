@@ -50,6 +50,10 @@ class filter_form extends moodleform {
         $mform->addElement('text', 'assignmentname', get_string('assignmentnamefilter', 'report_assignment_files'));
         $mform->setType('assignmentname', PARAM_TEXT);
 
+        // Allow the page index.
+        $mform->addElement('advcheckbox', 'zipall', get_string('zipall', 'report_assignment_files'));
+        $mform->setDefault('showindex', 0);
+
         $this->add_action_buttons(false, get_string('submit'));
     }
 
