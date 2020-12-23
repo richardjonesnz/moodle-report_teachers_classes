@@ -184,10 +184,60 @@ function assignment_files_display_list($submissions, $params) {
     $table->print_html();
 }
 
+function assignment_files_get_all($formdata) {
+    global $DB;
+
+    $params = array();
+    $condition = '1';
+
+    if (isset($filters['username']) && $filters['username']) {
+        $params['username'] = '%' . $DB->sql_like_escape($filters['username']) . '%';
+        $params[] = $DB->sql_like('u.username', ':username', false);
+    }
+
+    if (isset($filters['coursename']) && $filters['coursename']) {
+        $params['coursename'] = '%' . $DB->sql_like_escape($filters['coursename']) . '%';
+        $params[] = $DB->sql_like('c.fullname', ':coursename', false);
+    }
+
+    if (isset($filters['assignmentname']) && $filters['assignmentname']) {
+        $params['assignmentname'] = '%' . $DB->sql_like_escape($filters['assignmentname']) . '%';
+        $params[] = $DB->sql_like('a.name', ':assignmentname', false);
+    }
+
+    if (!empty($params)) {
+        $condition = implode(' AND ', $params);
+    }
+
+    $sql = "SELECT f.id, s.id AS submissionid, a.id AS assignmentid, a.name,
+                   c.id AS courseid, c.fullname, u.id, u.username
+              FROM {assignsubmission_file} f
+              JOIN {assign_submission} s ON s.id = f.submission
+              JOIN {assign} a ON a.id = f.assignment
+              JOIN {course} c ON c.id = a.course
+              JOIN {user} u ON u.id = s.userid
+             WHERE :condition
+          ORDER BY u.username, c.fullname, a.name";
+
+    $submissions = $DB->get_records_sql($sql, ['condition' => $condition]);
+
+    $fs = get_file_storage();
+    foreach ($submissions as $submission) {
+        $cm = get_coursemodule_from_instance('assign', $submission->assignmentid, $submission->courseid);
+        //$submission->cmid = $cm->id;
+        $context = context_module::instance($cm->id);
+        $files = $fs->get_area_files($context->id, 'assignsubmission_file',
+                ASSIGNSUBMISSION_FILE_FILEAREA, $submission->submissionid, 'filename', false);
+        $submission->files = $files;
+    }
+
+    return $submissions;
+}
+
 /**
  * Downloads a zipfile with all submissions in it.
  */
-function assignment_files_download($submissions) {
+function assignment_files_zip($submissions) {
 
     // Create a ziparchive file.
     $ziparchive = new \zip_archive();
