@@ -18,16 +18,16 @@
  * Capabilities
  *
  * @package     report
- * @subpackage  assignment_files
- * @author      Russell England <russell.england@gmail.com>
- * @copyright   Russell England <russell.england@gmail.com>
+ * @subpackage  teachers_classes
+ * @author richard f jones richardnz@outlook.com
+ * @copyright 2021 richard f jones <richardnz@outlook.com>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
 $capabilities = array(
-    'report/assignment_files:view' => array(
+    'report/teachers_classes:view' => array(
         'riskbitmask' => RISK_PERSONAL,
         'captype' => 'read',
         'contextlevel' => CONTEXT_USER,

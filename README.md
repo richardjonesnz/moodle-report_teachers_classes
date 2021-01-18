@@ -1,20 +1,18 @@
-Assignment files report
-================
+Teachers classes report
+=======================
 
-Report to display all assignment files uploaded for a course and / or user
+Report to display all classes of a given teacher
 
 
 Installation
 ------------
 
-Copy code to the folder /report/assignment_files
+Copy code to the folder /report/teachers_classes
 
 Run the notifications to update the capabilities
 
-Then the report is available from site admin -> reports -> assignment files
+Then the report is available from site admin -> reports -> teachers classes
 
 Version history
 ---------------
-
-Version : 2013091500
 Initial attempt

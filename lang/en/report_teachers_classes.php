@@ -15,23 +15,15 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Links and settings
+ * Strings for report 'teachers_classes'
  *
- * Contains settings used by assignment files report.
  * @package     report
  * @subpackage  teachers_classes
  * @author richard f jones richardnz@outlook.com
  * @copyright 2021 richard f jones <richardnz@outlook.com>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-
-defined('MOODLE_INTERNAL') || die;
-
-// Just a link to course report.
-$ADMIN->add('reports', new admin_externalpage('report_teachers_classes',
-        get_string('pluginname', 'report_teachers_classes'),
-        "$CFG->wwwroot/report/teachers_classes",
-        'report/teachers_classes:view'));
-
-// No report settings.
-$settings = null;
+$string['pluginname'] = 'Teachers classes';
+$string['teachers_classes:view'] = 'View assignment files';
+$string['formheader'] = 'Select a teacher';
+$string['filter'] = 'Teacher name contains';

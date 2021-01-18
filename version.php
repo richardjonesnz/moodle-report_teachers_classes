@@ -19,14 +19,14 @@
  *
  * Contains settings used by assignment files report.
  * @package     report
- * @subpackage  assignment_files
- * @author      Russell England <russell.england@gmail.com>
- * @copyright   Russell England <russell.england@gmail.com>
+ * @subpackage  teachers_classes
+ * @author richard f jones richardnz@outlook.com
+ * @copyright 2021 richard f jones <richardnz@outlook.com>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die;
 
-$plugin->version   = 2013091500;          // The current plugin version (Date: YYYYMMDDXX).
-$plugin->requires  = 2012112900;          // Requires this Moodle version.
-$plugin->component = 'report_assignment_files'; // Full name of the plugin (used for diagnostics).
+$plugin->version   = 2021011900;
+$plugin->requires  = 2020110900;
+$plugin->component = 'report_teachers_classes';
