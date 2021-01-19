@@ -24,6 +24,7 @@
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 use report_teachers_classes\forms\teacher_form;
+use report_teachers_classes\local\class_list;
 require('../../config.php');
 
 $teachername = optional_param('teachername', '', PARAM_ALPHA);
@@ -41,19 +42,20 @@ require_capability('report/teachers_classes:view', $context);
 $PAGE->set_pagelayout('report');
 
 echo $OUTPUT->header();
-echo $OUTPUT->heading($heading);
 
 $mform = new teacher_form();
 
 if ($formdata = $mform->get_data()) {
-    // New filters so reset the page number.
     $teachername = $formdata->teachername;
-} else {
-    $formdata = new stdClass();
-    $formdata->teachername = $teachername;
+}
+
+if ($teachername === '') {
+    $teachername = get_string('nodata', 'report_teachers_classes');
 }
 
 $mform->set_data($formdata);
 $mform->display();
+
+echo $OUTPUT->render(new class_list($heading, $teachername));
 
 echo $OUTPUT->footer();

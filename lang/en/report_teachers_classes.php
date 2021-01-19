@@ -27,3 +27,13 @@ $string['pluginname'] = 'Teachers classes';
 $string['teachers_classes:view'] = 'View assignment files';
 $string['formheader'] = 'Select a teacher';
 $string['filter'] = 'Teacher name contains';
+$string['nodata'] = 'Nothing to display';
+
+$string['courseid'] = 'Course id';
+$string['fullname'] = 'Course name';
+$string['firstname'] = 'Teacher firstname';
+$string['lastname'] = 'Teacher lastname';
+
+$string['narrowsearch'] = 'Multiple teachers returned, please narrow your search';
+$string['nodata'] = 'No data returned';
+$string['searchresults'] = 'Search results:';
